@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNet.Identity
+@using Resources
+
+<ul class="loginbar">
+    <li><a href="@Url.Action("Help", "Account")" class="login-btn">@General.HelpLink</a></li>
+    <li class="devider">&nbsp;</li>
+    <li><a href="@Url.Action("Register", "Account")" class="login-btn">@General.RegisterLink</a></li>
+    <li class="devider">&nbsp;</li>
+    <li><a href="@Url.Action("Login", "Account")" class="login-btn">@General.LoginLink</a></li>
+</ul>
+<ul class="social-icons">
+    <li><a href="http://www.facebook.com/thepetmatch" data-original-title="@General.FacebookLink" class="social_facebook"></a></li>
+    <li><a href="http://www.twitter.com/pet_match" data-original-title="@General.TwitterLink" class="social_twitter"></a></li>
+    <li><a href="#" data-original-title="@General.PinterestLink" class="social_pintrest"></a></li>
+</ul>
