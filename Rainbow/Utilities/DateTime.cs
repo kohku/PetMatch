@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetMatch.Web.Utilities
+namespace Rainbow.Web.Utilities
 {
     public static class SqlDateTime
     {

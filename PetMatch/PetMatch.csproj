@@ -775,6 +775,7 @@
     <Content Include="assets\plugins\revolution_slider\rs-plugin\js\_notes\dwsync.xml" />
     <Content Include="assets\plugins\revolution_slider\_notes\dwsync.xml" />
     <Content Include="assets\plugins\_notes\dwsync.xml" />
+    <Content Include="Content\account\register.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -1563,6 +1564,10 @@
     <ProjectReference Include="..\PetMatch.Web\PetMatch.Web.csproj">
       <Project>{eed40cb1-bbab-4abc-aac3-e5215bb5df97}</Project>
       <Name>PetMatch.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rainbow\Rainbow.Web.csproj">
+      <Project>{8585a923-ed0f-4c4a-898a-de6903aa781e}</Project>
+      <Name>Rainbow.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

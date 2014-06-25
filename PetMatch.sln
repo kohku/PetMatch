@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetMatch", "PetMatch\PetMat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetMatch.Web", "PetMatch.Web\PetMatch.Web.csproj", "{EED40CB1-BBAB-4ABC-AAC3-E5215BB5DF97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Web", "Rainbow\Rainbow.Web.csproj", "{8585A923-ED0F-4C4A-898A-DE6903AA781E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EED40CB1-BBAB-4ABC-AAC3-E5215BB5DF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EED40CB1-BBAB-4ABC-AAC3-E5215BB5DF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EED40CB1-BBAB-4ABC-AAC3-E5215BB5DF97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8585A923-ED0F-4C4A-898A-DE6903AA781E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8585A923-ED0F-4C4A-898A-DE6903AA781E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8585A923-ED0F-4C4A-898A-DE6903AA781E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8585A923-ED0F-4C4A-898A-DE6903AA781E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

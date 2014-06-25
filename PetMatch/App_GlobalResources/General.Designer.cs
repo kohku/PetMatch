@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecciona una ciudad.
+        /// </summary>
+        internal static string CitySelect {
+            get {
+                return ResourceManager.GetString("CitySelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook.
         /// </summary>
         internal static string FacebookLink {
@@ -102,6 +111,15 @@ namespace Resources {
         internal static string RegisterLink {
             get {
                 return ResourceManager.GetString("RegisterLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecciona un estado.
+        /// </summary>
+        internal static string StateSelect {
+            get {
+                return ResourceManager.GetString("StateSelect", resourceCulture);
             }
         }
         

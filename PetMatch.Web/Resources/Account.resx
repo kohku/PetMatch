@@ -117,28 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CitySelect" xml:space="preserve">
-    <value>Selecciona una ciudad</value>
+  <data name="CellPhone" xml:space="preserve">
+    <value>Celular</value>
   </data>
-  <data name="FacebookLink" xml:space="preserve">
-    <value>Facebook</value>
+  <data name="City" xml:space="preserve">
+    <value>Ciudad</value>
   </data>
-  <data name="HelpLink" xml:space="preserve">
-    <value>Ayuda</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar contraseña</value>
   </data>
-  <data name="LoginLink" xml:space="preserve">
-    <value>Ingresar</value>
+  <data name="Email" xml:space="preserve">
+    <value>Correo electrónico</value>
   </data>
-  <data name="PinterestLink" xml:space="preserve">
-    <value>Pinterest</value>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Campo requerido</value>
   </data>
-  <data name="RegisterLink" xml:space="preserve">
-    <value>Registro</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombre</value>
   </data>
-  <data name="StateSelect" xml:space="preserve">
-    <value>Selecciona un estado</value>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>Campo requerido</value>
   </data>
-  <data name="TwitterLink" xml:space="preserve">
-    <value>Twitter</value>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Campo requerido</value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Colonia</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="PasswordDoesNotMatch" xml:space="preserve">
+    <value>Las contraseñas no coinciden.</value>
+  </data>
+  <data name="PasswordLength" xml:space="preserve">
+    <value>La longitud mínima de la {0} debe ser mayor a {2}.</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Estado</value>
   </data>
 </root>

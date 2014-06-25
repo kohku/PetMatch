@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace PetMatch.Models
 {
@@ -53,21 +54,66 @@ namespace PetMatch.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Display(Name = "FirstName", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "FirstNameRequired", ErrorMessage = "")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "LastName", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "LastNameRequired", ErrorMessage = "")]
+        public string LastName { get; set; }
+
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "EmailRequired", ErrorMessage = "")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Display(Name = "CellPhone", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public string CellPhone { get; set; }
+
+        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public string State { get; set; }
+
+        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public string City { get; set; }
+
+        [Display(Name = "Neighborhood", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public string Neighborhood { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordLength", ErrorMessage = "", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(PetMatch.Web.Resources.Account))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Compare("Password", ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordDoesNotMatch", ErrorMessage = "")]
         public string ConfirmPassword { get; set; }
+
+        public System.Web.Mvc.SelectList States
+        {
+            get
+            {
+                var all = Rainbow.Web.StateEntity.GetAll();
+
+                var query = from s in all
+                            where s.Visible
+                            select new
+                            {
+                                ID = s.ID,
+                                Name = s.Name
+                            };
+
+                return new System.Web.Mvc.SelectList(query.ToArray(), "ID", "Name");
+            }
+        }
+
+        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public System.Guid StateID { get; set; }
+
+        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public System.Guid CityID { get; set; }
     }
 
     public class ResetPasswordViewModel

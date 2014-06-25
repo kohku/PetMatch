@@ -81,6 +81,16 @@ namespace PetMatch.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult GetCities(Guid stateId)
+        {
+            var cities = from city in Rainbow.Web.Province.GetProvinces(stateId)
+                         where city.Visible
+                         select city;
+
+            return Json(cities, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // POST: /Account/Register
         [HttpPost]
