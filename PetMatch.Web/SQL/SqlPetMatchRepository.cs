@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetMatch.Web.SQL
+namespace PetMatch.Web.Sql
 {
     public class SqlPetMatchRepository : IPetMatchRepository
     {

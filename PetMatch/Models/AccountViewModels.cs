@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace PetMatch.Models
@@ -72,6 +73,12 @@ namespace PetMatch.Models
         public string CellPhone { get; set; }
 
         [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public System.Guid StateID { get; set; }
+
+        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        public System.Guid CityID { get; set; }
+
+        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
         public string State { get; set; }
 
         [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
@@ -91,29 +98,20 @@ namespace PetMatch.Models
         [Compare("Password", ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordDoesNotMatch", ErrorMessage = "")]
         public string ConfirmPassword { get; set; }
 
-        public System.Web.Mvc.SelectList States
+        public IEnumerable<System.Web.Mvc.SelectListItem> States
         {
             get
             {
-                var all = Rainbow.Web.StateEntity.GetAll();
+                var states = from state in Rainbow.Web.StateEntity.GetAll()
+                             select new System.Web.Mvc.SelectListItem
+                             {
+                                 Value = state.ID.ToString(),
+                                 Text = state.Name
+                             };
 
-                var query = from s in all
-                            where s.Visible
-                            select new
-                            {
-                                ID = s.ID,
-                                Name = s.Name
-                            };
-
-                return new System.Web.Mvc.SelectList(query.ToArray(), "ID", "Name");
+                return states;
             }
         }
-
-        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public System.Guid StateID { get; set; }
-
-        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public System.Guid CityID { get; set; }
     }
 
     public class ResetPasswordViewModel

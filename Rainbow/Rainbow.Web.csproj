@@ -57,7 +57,7 @@
     <Compile Include="Rainbow.cs" />
     <Compile Include="SaveAction.cs" />
     <Compile Include="SavedEventArgs.cs" />
-    <Compile Include="SqlRainbowRepository.cs" />
+    <Compile Include="Sql\SqlRainbowRepository.cs" />
     <Compile Include="StateEntity.cs" />
     <Compile Include="Utilities\DateTime.cs" />
     <Compile Include="Utilities\ResourceStringLoader.cs" />

@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="SaveAction.cs" />
     <Compile Include="SavedEventArgs.cs" />
-    <Compile Include="SQL\SqlPetMatchRepository.cs" />
+    <Compile Include="Sql\SqlPetMatchRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

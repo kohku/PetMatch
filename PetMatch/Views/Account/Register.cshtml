@@ -1,4 +1,5 @@
 ﻿@model PetMatch.Models.RegisterViewModel
+@using Resources
 @{
     ViewBag.Title = "Register";
 }
@@ -35,9 +36,9 @@
                     @Html.LabelFor(m => m.CellPhone)
                     @Html.TextBoxFor(m => m.CellPhone, new { @class = "span12" })
                     @Html.LabelFor(m => m.StateID)
-                    @Html.DropDownListFor(m => m.StateID, Model.States, "Select..." , new { id = "__states", @class = "span6" })
+                    @Html.DropDownListFor(m => m.StateID, Model.States, General.StateSelect, new { id = "__states", @class = "span6" })
                     @Html.LabelFor(m => m.CityID)
-                    @Html.DropDownListFor(m => m.CityID, Enumerable.Empty<SelectListItem>(), "Select...", new { id = "__cities", @class = "span6" })
+                    @Html.DropDownListFor(m => m.CityID, Enumerable.Empty<SelectListItem>(), General.CitySelect, new { id = "__cities", @class = "span6" })
                     @Html.LabelFor(m => m.Neighborhood)
                     @Html.TextBoxFor(m => m.Neighborhood, new { @class = "span12" })
                     <p class="text-info">Estos datos nos ayudan a encontrar a los usuarios más cercanos a tu ubicación, sin embargo son opcionales.</p>
@@ -563,26 +564,30 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-        /* localizing calendar content to spanish language */
         $(document).ready(function () {
             $('#__states').change(function () {
-                var selected = $(this).val();
-                if (selected != null && selected != '00000000-0000-0000-0000-000000000000') {
-                    $.getJSON('@Url.Action("GetCities")', { stateId: selected }, function (cities) {
-                        var cascade = $('#__cities');
-                        cascade.empty();
-                        cascade.append($('<option/>', {
-                            value: '00000000-0000-0000-0000-000000000000',
-                            text: '@Resources.General.CitySelect'
-                        }));
-                        $.each(cities, function (index, city) {
-                            cascade.append($('<option/>', {
-                                value: city.value,
-                                text: city.text
-                            }));
-                        });
-                    });
+                function resetCascade(cascade) {
+                    cascade.empty();
+                    cascade.append($('<option/>', {
+                        value: '',
+                        text: '@General.CitySelect'
+                    }));
                 }
+                var selected = $(this).val();
+                if (selected == null || selected == ''){
+                    resetCascade($('#__cities'));
+                    return;
+                }
+                $.getJSON('@Url.Action("GetCities")', { stateId: selected }, function (cities) {
+                    var cascade = $('#__cities');
+                    resetCascade(cascade);
+                    $.each(cities, function (index, city) {
+                        cascade.append($('<option/>', {
+                            value: city.value,
+                            text: city.text
+                        }));
+                    });
+                });
             });
         });
     </script>

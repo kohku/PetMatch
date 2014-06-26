@@ -78,15 +78,15 @@ namespace PetMatch.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var model = new RegisterViewModel();
+            return View(model);
         }
 
         [AllowAnonymous]
         public ActionResult GetCities(Guid stateId)
         {
-            var cities = from city in Rainbow.Web.Province.GetProvinces(stateId)
-                         where city.Visible
-                         select city;
+            var cities = from province in Rainbow.Web.Province.GetProvinces(stateId)
+                         select new { value = province.ID, text = province.Name };
 
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
