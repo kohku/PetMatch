@@ -129,6 +129,12 @@
   <data name="LoginLink" xml:space="preserve">
     <value>Ingresar</value>
   </data>
+  <data name="PetBreedSelect" xml:space="preserve">
+    <value>Selecciona</value>
+  </data>
+  <data name="PetAnimalSelect" xml:space="preserve">
+    <value>Selecciona</value>
+  </data>
   <data name="PinterestLink" xml:space="preserve">
     <value>Pinterest</value>
   </data>

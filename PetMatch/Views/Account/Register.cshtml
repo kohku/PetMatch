@@ -58,15 +58,10 @@
                 <input type="text" class="span12" />
 
                 <label>Clase de mascota <span class="color-red">*</span></label>
-                <select class="span6">
-                    <option>Perro</option>
-                    <option>Gato</option>
-                    <option>Hurón</option>
-                    <option>Ave</option>
-                    <option>Reptil</option>
-                </select>
+                @Html.DropDownListFor(m => m.PetAnimalID, Model.PetAnimals, General.PetAnimalSelect, new { id = "__petType", @class = "span6" })
 
                 <label>Por favor, elige la raza <span class="color-red">*</span></label>
+                @Html.DropDownListFor(m => m.PetBreedID, Enumerable.Empty<SelectListItem>(), General.PetBreedSelect, new { id = "__petBreed", @class = "span6" })
                 <select class="span6">
                     <option>--A--</option>
                     <option>Affenpinscher </option>

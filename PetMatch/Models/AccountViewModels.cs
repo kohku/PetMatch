@@ -112,6 +112,25 @@ namespace PetMatch.Models
                 return states;
             }
         }
+
+        public System.Guid PetAnimalID { get; set; }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> PetAnimals
+        {
+            get
+            {
+                var types = from type in PetMatch.Web.PetAnimal.GetAll()
+                               select new System.Web.Mvc.SelectListItem
+                               {
+                                   Value = type.ID.ToString(),
+                                   Text = type.Name
+                               };
+
+                return types;
+            }
+        }
+
+        public System.Guid PetBreedID { get; set; }
     }
 
     public class ResetPasswordViewModel

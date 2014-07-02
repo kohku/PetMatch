@@ -88,24 +88,24 @@ namespace PetMatch.Web
             return container.Resolve<IPetMatchRepository>().GetBreeds(id, name);
         }
 
-        internal void UpdatePetType(PetType type)
+        internal void UpdatePetAnimal(PetAnimal animal)
         {
-            container.Resolve<IPetMatchRepository>().PetType(type);
+            container.Resolve<IPetMatchRepository>().UpdatePetAnimal(animal);
         }
 
-        internal void InsertPetType(PetType type)
+        internal void InsertPetAnimal(PetAnimal animal)
         {
-            container.Resolve<IPetMatchRepository>().InsertPetType(type);
+            container.Resolve<IPetMatchRepository>().InsertPetAnimal(animal);
         }
 
-        internal void DeletePetType(PetType type)
+        internal void DeletePetAnimal(PetAnimal animal)
         {
-            container.Resolve<IPetMatchRepository>().DeletePetType(type);
+            container.Resolve<IPetMatchRepository>().DeletePetAnimal(animal);
         }
 
-        internal IEnumerable<PetType> GetPetTypes(Guid? id, string name)
+        internal IEnumerable<PetAnimal> GetPetAnimals(Guid? id, string name)
         {
-            return container.Resolve<IPetMatchRepository>().GetPetTypes(id, name);
+            return container.Resolve<IPetMatchRepository>().GetPetAnimals(id, name);
         }
     }
 }

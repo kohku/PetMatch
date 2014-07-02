@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace PetMatch.Web
 {
-    public class PetType : BusinessBase<PetType, Guid>
+    public class PetAnimal : BusinessBase<PetAnimal, Guid>
     {
         private string _name;
         private bool _visible;
 
-        public PetType()
+        public PetAnimal()
             : base(Guid.NewGuid())
         {
         }
@@ -56,51 +56,56 @@ namespace PetMatch.Web
 
         protected override void ValidationRules()
         {
-            AddRule("EmptyName", ResourceStringLoader.GetResourceString("PetType_EmptyName"),
+            AddRule("EmptyName", ResourceStringLoader.GetResourceString("PetAnimal_EmptyName"),
                 string.IsNullOrEmpty(this.Name));
-            AddRule("MaxNameLength", ResourceStringLoader.GetResourceString("PetType_MaxNameLength"),
+            AddRule("MaxNameLength", ResourceStringLoader.GetResourceString("PetAnimal_MaxNameLength"),
                 !string.IsNullOrEmpty(this.Name) && this.Name.Length > 100);
-            AddRule("EmptyCreatedBy", ResourceStringLoader.GetResourceString("PetType_EmptyCreatedBy"),
+            AddRule("EmptyCreatedBy", ResourceStringLoader.GetResourceString("PetAnimal_EmptyCreatedBy"),
                 string.IsNullOrEmpty(this.CreatedBy));
-            AddRule("MaxCreatedByLength", ResourceStringLoader.GetResourceString("PetType_MaxCreatedByLength"),
+            AddRule("MaxCreatedByLength", ResourceStringLoader.GetResourceString("PetAnimal_MaxCreatedByLength"),
                 !string.IsNullOrEmpty(this.CreatedBy) && this.CreatedBy.Length > 256);
-            AddRule("DuplicatedName", ResourceStringLoader.GetResourceString("PetType_DuplicatedName", new { this.Name }),
+            AddRule("DuplicatedName", ResourceStringLoader.GetResourceString("PetAnimal_DuplicatedName", new { this.Name }),
                 !string.IsNullOrEmpty(this.Name) && this.ChangedProperties.Contains("Name")
-                && PetType.GetPetTypes(null, this.Name).Count(m => m.ID != this.ID) > 0);
-            AddRule("EmptyLastUpdatedBy", ResourceStringLoader.GetResourceString("PetType_EmptyLastUpdatedBy"),
+                && PetAnimal.GetPetAnimals(null, this.Name).Count(m => m.ID != this.ID) > 0);
+            AddRule("EmptyLastUpdatedBy", ResourceStringLoader.GetResourceString("PetAnimal_EmptyLastUpdatedBy"),
                 !this.IsNew && this.IsChanged && string.IsNullOrEmpty(this.LastUpdatedBy));
-            AddRule("MaxLastUpdatedByLength", ResourceStringLoader.GetResourceString("PetType_MaxLastUpdatedByLength"),
+            AddRule("MaxLastUpdatedByLength", ResourceStringLoader.GetResourceString("PetAnimal_MaxLastUpdatedByLength"),
                 !this.IsNew && this.IsChanged && !string.IsNullOrEmpty(this.LastUpdatedBy) && this.LastUpdatedBy.Length > 256);
         }
 
-        protected override PetType DataSelect(Guid id)
+        protected override PetAnimal DataSelect(Guid id)
         {
-            return PetType.GetPetTypes(id, null).FirstOrDefault();
+            return PetAnimal.GetPetAnimals(id, null).FirstOrDefault();
         }
 
         protected override void DataUpdate()
         {
-            PetMatch.Instance.UpdatePetType(this);
+            PetMatch.Instance.UpdatePetAnimal(this);
         }
 
         protected override void DataInsert()
         {
-            PetMatch.Instance.InsertPetType(this);
+            PetMatch.Instance.InsertPetAnimal(this);
         }
 
         protected override void DataDelete()
         {
-            PetMatch.Instance.DeletePetType(this);
+            PetMatch.Instance.DeletePetAnimal(this);
         }
 
-        public static IEnumerable<PetType> GetPetTypes(Guid? id, string name)
+        public static IEnumerable<PetAnimal> GetPetAnimals(Guid? id, string name)
         {
-            var results = new List<PetType>(PetMatch.Instance.GetPetTypes(id, name));
+            var results = new List<PetAnimal>(PetMatch.Instance.GetPetAnimals(id, name));
 
             foreach (var item in results)
                 item.MarkOld();
 
             return results;
+        }
+
+        public static IEnumerable<PetAnimal> GetAll()
+        {
+            return PetAnimal.GetPetAnimals(null, null);
         }
     }
 }

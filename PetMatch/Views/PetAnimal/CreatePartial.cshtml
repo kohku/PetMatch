@@ -1,0 +1,12 @@
+﻿@model PetMatch.Models.PetAnimalCreateViewModel
+
+@using (Html.BeginForm("Create", "PetAnimal", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    @Html.LabelFor(m => m.Visible)
+    @Html.CheckBoxFor(m => m.Visible)
+    <input type="submit" value="Create" />
+    @Html.ValidationSummary()
+}

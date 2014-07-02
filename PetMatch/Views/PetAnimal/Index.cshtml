@@ -1,0 +1,11 @@
+﻿@model PetMatch.Models.PetAnimalIndexViewModel
+@{
+    ViewBag.Title = "Clases de mascotas";
+}
+@Html.Partial("CreatePartial", Model.CreateViewModel)
+<ul>
+    @foreach (var m in Model.PetAnimals)
+    {
+        <li>@m.Name <input type="checkbox" @(m.Visible ? "checked" : null)/>Visible</li>
+    }
+</ul>

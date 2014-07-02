@@ -97,6 +97,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecciona.
+        /// </summary>
+        internal static string PetAnimalSelect {
+            get {
+                return ResourceManager.GetString("PetAnimalSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecciona.
+        /// </summary>
+        internal static string PetBreedSelect {
+            get {
+                return ResourceManager.GetString("PetBreedSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pinterest.
         /// </summary>
         internal static string PinterestLink {

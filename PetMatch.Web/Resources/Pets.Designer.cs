@@ -189,63 +189,63 @@ namespace PetMatch.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Pet type &quot;{0}&quot; already exists..
         /// </summary>
-        internal static string PetType_DuplicatedName {
+        internal static string PetAnimal_DuplicatedName {
             get {
-                return ResourceManager.GetString("PetType_DuplicatedName", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_DuplicatedName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Created by property must be set..
         /// </summary>
-        internal static string PetType_EmptyCreatedBy {
+        internal static string PetAnimal_EmptyCreatedBy {
             get {
-                return ResourceManager.GetString("PetType_EmptyCreatedBy", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_EmptyCreatedBy", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Last updated by property must be set..
         /// </summary>
-        internal static string PetType_EmptyLastUpdatedBy {
+        internal static string PetAnimal_EmptyLastUpdatedBy {
             get {
-                return ResourceManager.GetString("PetType_EmptyLastUpdatedBy", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_EmptyLastUpdatedBy", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Name property is null or empty..
         /// </summary>
-        internal static string PetType_EmptyName {
+        internal static string PetAnimal_EmptyName {
             get {
-                return ResourceManager.GetString("PetType_EmptyName", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_EmptyName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Max length for created by is 256 characters..
         /// </summary>
-        internal static string PetType_MaxCreatedByLength {
+        internal static string PetAnimal_MaxCreatedByLength {
             get {
-                return ResourceManager.GetString("PetType_MaxCreatedByLength", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_MaxCreatedByLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Max length for last updated by is 256 characters..
         /// </summary>
-        internal static string PetType_MaxLastUpdatedByLength {
+        internal static string PetAnimal_MaxLastUpdatedByLength {
             get {
-                return ResourceManager.GetString("PetType_MaxLastUpdatedByLength", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_MaxLastUpdatedByLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Max length for name is 100 characters..
         /// </summary>
-        internal static string PetType_MaxNameLength {
+        internal static string PetAnimal_MaxNameLength {
             get {
-                return ResourceManager.GetString("PetType_MaxNameLength", resourceCulture);
+                return ResourceManager.GetString("PetAnimal_MaxNameLength", resourceCulture);
             }
         }
     }

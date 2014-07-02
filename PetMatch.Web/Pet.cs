@@ -14,8 +14,8 @@ namespace PetMatch.Web
         private bool _visible;
         private DateTime? _birthDate;
         private string _gender;
-        private Guid _typeId;
-        private PetType _type;
+        private Guid _petAnimalId;
+        private PetAnimal _petAnimal;
         private Guid _breedId;
         private PetBreed _breed;
 
@@ -97,35 +97,35 @@ namespace PetMatch.Web
         public Guid TypeID
         {
             [System.Diagnostics.DebuggerStepThrough]
-            get { return _typeId; }
+            get { return _petAnimalId; }
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._typeId != value)
+                if (this._petAnimalId != value)
                 {
                     this.OnPropertyChanging("TypeID");
                     this.MarkChanged("TypeID");
                 }
 
-                this._typeId = value;
+                this._petAnimalId = value;
             }
         }
 
-        public PetType PetType
+        public PetAnimal PetAnimal
         {
             [System.Diagnostics.DebuggerStepThrough]
             get 
             {
-                if (_type == null)
+                if (_petAnimal == null)
                 {
                     lock (syncRoot)
                     {
-                        if (_type == null)
-                            _type = PetType.Load(this.TypeID);
+                        if (_petAnimal == null)
+                            _petAnimal = PetAnimal.Load(this.TypeID);
                     }
                 }
                 
-                return _type; 
+                return _petAnimal; 
             }
         }
 
