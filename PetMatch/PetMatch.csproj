@@ -165,6 +165,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Helpers\AsyncHelper.cs" />
+    <Compile Include="Helpers\FacebookHelper.cs" />
+    <Compile Include="Helpers\LoginDetailsHelper.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PetAnimalController.cs" />
@@ -782,6 +785,8 @@
     <Content Include="Content\account\register.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\facebook.png" />
+    <Content Include="Content\images\google.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1557,6 +1562,7 @@
     <Content Include="Views\PetAnimal\Index.cshtml" />
     <Content Include="Views\PetAnimal\CreatePartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\Register - Copy.cshtml" />
     <None Include="Views\Shared\_Layout.bak" />
   </ItemGroup>
   <ItemGroup>

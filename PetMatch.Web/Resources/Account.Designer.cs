@@ -142,11 +142,38 @@ namespace PetMatch.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Iniciar con {0}.
+        /// </summary>
+        public static string LoginExternalText {
+            get {
+                return ResourceManager.GetString("LoginExternalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar sesión con tu cuenta {0}..
+        /// </summary>
+        public static string LoginExternalTitle {
+            get {
+                return ResourceManager.GetString("LoginExternalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Colonia.
         /// </summary>
         public static string Neighborhood {
             get {
                 return ResourceManager.GetString("Neighborhood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to o.
+        /// </summary>
+        public static string OrRegisterWithExternal {
+            get {
+                return ResourceManager.GetString("OrRegisterWithExternal", resourceCulture);
             }
         }
         
@@ -174,6 +201,24 @@ namespace PetMatch.Web.Resources {
         public static string PasswordLength {
             get {
                 return ResourceManager.GetString("PasswordLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regístrate con {0}.
+        /// </summary>
+        public static string RegisterExternalText {
+            get {
+                return ResourceManager.GetString("RegisterExternalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regístrate con tu cuenta {0}..
+        /// </summary>
+        public static string RegisterExternalTitle {
+            get {
+                return ResourceManager.GetString("RegisterExternalTitle", resourceCulture);
             }
         }
         

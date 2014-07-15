@@ -144,8 +144,17 @@
   <data name="LastNameRequired" xml:space="preserve">
     <value>Campo requerido</value>
   </data>
+  <data name="LoginExternalText" xml:space="preserve">
+    <value>Iniciar con {0}</value>
+  </data>
+  <data name="LoginExternalTitle" xml:space="preserve">
+    <value>Iniciar sesión con tu cuenta {0}.</value>
+  </data>
   <data name="Neighborhood" xml:space="preserve">
     <value>Colonia</value>
+  </data>
+  <data name="OrRegisterWithExternal" xml:space="preserve">
+    <value>o</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
@@ -155,6 +164,12 @@
   </data>
   <data name="PasswordLength" xml:space="preserve">
     <value>La longitud mínima de la {0} debe ser mayor a {2}.</value>
+  </data>
+  <data name="RegisterExternalText" xml:space="preserve">
+    <value>Regístrate con {0}</value>
+  </data>
+  <data name="RegisterExternalTitle" xml:space="preserve">
+    <value>Regístrate con tu cuenta {0}.</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>Estado</value>

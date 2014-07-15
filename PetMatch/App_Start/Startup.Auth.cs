@@ -8,6 +8,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 using PetMatch.Models;
+using System.Configuration;
 
 namespace PetMatch
 {
@@ -46,15 +47,27 @@ namespace PetMatch
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            var facebookOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings["Facebook:AppId"],
+                AppSecret = ConfigurationManager.AppSettings["Facebook:AppSecret"],
+                Provider = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider()
+                {
+                    OnAuthenticated = PetMatch.Helpers.FacebookHelper.AddBasicDetailsAsClaims
+                },
+                SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie
+            };
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            foreach (string item in PetMatch.Helpers.FacebookHelper.Scopes)
+            {
+                facebookOptions.Scope.Add(item);
+            }
+
+            app.UseFacebookAuthentication(facebookOptions);
+
+            app.UseGoogleAuthentication(
+                clientId: ConfigurationManager.AppSettings["Google:ClientId"],
+                clientSecret: ConfigurationManager.AppSettings["Google:ClientSecret"]);
         }
     }
 }

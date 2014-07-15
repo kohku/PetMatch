@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -53,8 +54,13 @@ namespace PetMatch.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class ProfileViewModel
     {
+        private const string GenderMale = "male";
+        private const string GenderFemale = "female";
+
+        public string Name { get; set; }
+
         [Display(Name = "FirstName", ResourceType = typeof(PetMatch.Web.Resources.Account))]
         [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "FirstNameRequired", ErrorMessage = "")]
         public string FirstName { get; set; }
@@ -63,29 +69,40 @@ namespace PetMatch.Models
         [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "LastNameRequired", ErrorMessage = "")]
         public string LastName { get; set; }
 
+        [Display(Name = "Email", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [EmailAddress(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "InvalidEmail", ErrorMessage = "")]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "EmailRequired", ErrorMessage = "")]
+        public string Email { get; set; }
+
+        [Display(Name = "Gender", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "GenderRequired", ErrorMessage = "")]
+        public string Gender { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "BirthDay", ResourceType = typeof(PetMatch.Web.Resources.Account))]
+        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "BirthDayRequired", ErrorMessage = "")]
+        public DateTime BirthDay { get; set; }
+
+
+    }
+
+    public class LoginDetailViewMode
+    {
+        public string Name { get; set; }
+
+        public Uri Picture { get; set; }
+
+        public string Provider { get; set; }
+
+        public string FirstName { get; set; }
+    }
+
+    public class RegisterViewModel
+    {
         [EmailAddress]
         [Display(Name = "Email", ResourceType = typeof(PetMatch.Web.Resources.Account))]
         [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "EmailRequired", ErrorMessage = "")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "CellPhone", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public string CellPhone { get; set; }
-
-        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public System.Guid StateID { get; set; }
-
-        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public System.Guid CityID { get; set; }
-
-        [Display(Name = "State", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public string State { get; set; }
-
-        [Display(Name = "City", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public string City { get; set; }
-
-        [Display(Name = "Neighborhood", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public string Neighborhood { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordLength", ErrorMessage = "", MinimumLength = 6)]
@@ -97,40 +114,6 @@ namespace PetMatch.Models
         [Display(Name = "ConfirmPassword", ResourceType = typeof(PetMatch.Web.Resources.Account))]
         [Compare("Password", ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordDoesNotMatch", ErrorMessage = "")]
         public string ConfirmPassword { get; set; }
-
-        public IEnumerable<System.Web.Mvc.SelectListItem> States
-        {
-            get
-            {
-                var states = from state in Rainbow.Web.StateEntity.GetAll()
-                             select new System.Web.Mvc.SelectListItem
-                             {
-                                 Value = state.ID.ToString(),
-                                 Text = state.Name
-                             };
-
-                return states;
-            }
-        }
-
-        public System.Guid PetAnimalID { get; set; }
-
-        public IEnumerable<System.Web.Mvc.SelectListItem> PetAnimals
-        {
-            get
-            {
-                var types = from type in PetMatch.Web.PetAnimal.GetAll()
-                               select new System.Web.Mvc.SelectListItem
-                               {
-                                   Value = type.ID.ToString(),
-                                   Text = type.Name
-                               };
-
-                return types;
-            }
-        }
-
-        public System.Guid PetBreedID { get; set; }
     }
 
     public class ResetPasswordViewModel
