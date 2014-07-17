@@ -10,12 +10,12 @@
         using (Html.BeginForm(Model.Action, "Account", new { ReturnUrl = Model.ReturnUrl }))
         {
             @Html.AntiForgeryToken()
-            <p>También puedes iniciar sesión con utlizando alguno de los siguientes servicios:</p>
+            <p>También puedes registrarte con utlizando alguno de los siguientes servicios:</p>
             <div id="__external_login">
                 <div id="__socialLoginList">
                     @foreach (AuthenticationDescription p in loginProviders.OrderBy(authentication => authentication.Caption))
                     {
-                        <button type="submit" class="pure-button" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="@string.Format("Ingresa con tu cuenta de {0}", p.Caption)">@string.Format("Ingresa con {0}", p.AuthenticationType)</button>
+                        <button type="submit" class="pure-button" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="@string.Format("Regístrate utilizando tu cuenta de {0}.", p.Caption)">@string.Format("Usando {0}", p.AuthenticationType)</button>
                     }
                 </div>
             </div>

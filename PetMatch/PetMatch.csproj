@@ -782,7 +782,9 @@
     <Content Include="assets\plugins\revolution_slider\rs-plugin\js\_notes\dwsync.xml" />
     <Content Include="assets\plugins\revolution_slider\_notes\dwsync.xml" />
     <Content Include="assets\plugins\_notes\dwsync.xml" />
+    <Content Include="Content\account\login.css" />
     <Content Include="Content\account\register.css" />
+    <Content Include="Content\account\social.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\facebook.png" />
@@ -1563,6 +1565,8 @@
     <Content Include="Views\PetAnimal\CreatePartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Account\Register - Copy.cshtml" />
+    <Content Include="Views\Account\_RegisterExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Views\Shared\_Layout.bak" />
   </ItemGroup>
   <ItemGroup>

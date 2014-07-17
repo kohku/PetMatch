@@ -2,11 +2,12 @@
 @using Resources
 @model RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Registro";
 }
 
 @section AddToHead{
     <link href="@Url.Content("~/Content/account/register.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/account/social.css")" rel="stylesheet" type="text/css" />
 }
 
 <!--=== Content Part ===-->
@@ -21,33 +22,41 @@
         </div><!--/container-->
     </div><!--/breadcrumbs-->
     <div class="container">
-        <div class="row-fluid margin-bottom-10">
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "reg-page", role = "form" }))
+        <div class="row-fluid margin-bottom-10 reg-page">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <h3>Regístrate</h3>
                 <h4 class="color-green">Inicio de sesión</h4>
                 <div class="controls">
-                    @Html.LabelFor(m => m.Email, new { @class = "__required" })<span class="color-red __required">*&nbsp;@Html.ValidationMessageFor(m => m.Email)</span>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "span12" })
+                    @Html.LabelFor(m => m.Email, new { @class = "__required" })<span class="color-red __required">*</span>
+                    <div class="input-prepend __required">
+                        <span class="add-on"><i class="icon-user"></i></span>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "span12", placeholder = "usuario@ejemplo.com" })
+                    </div>
                     @Html.LabelFor(m => m.Password, new { @class = "__required" })<span class="color-red __required">*</span>
-                    @Html.PasswordFor(m => m.Password, new { @class="span12" })
+                    <div class="input-prepend __required">
+                        <span class=" add-on">
+                        <i class="icon-lock"></i></span>
+                        @Html.PasswordFor(m => m.Password, new { @class = "span12", placeholder = "Contraseña" })
+                    </div>
                     @Html.LabelFor(m => m.ConfirmPassword, new { @class = "__required" })<span class="color-red __required">*</span>
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "span12" })
+                    <div class="input-prepend __required">
+                        <span class="add-on"><i class="icon-lock"></i></span>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "span12", placeholder = "Contraseña" })
+                    </div>
+                    <button class="btn-u" type="submit">Registrarse</button>
+                    @Html.ValidationSummary("")
                 </div>
-
                 <hr />
-                <p>¿Ya estás registrado? Haz clic <a href="page_login.html" class="color-green">aquí</a> para ingresar a tu cuenta.</p>
-                <div id="__register_socialLoginForm">
-                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-                </div>
+                <p>¿Ya estás registrado? Haz clic <a href="@Url.Action("Login")" class="color-green">aquí</a> para ingresar a tu cuenta.</p>
             }
+            @Html.Partial("_RegisterExternalLoginsListPartial", new ExternalLoginListViewModel { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+            <p>Al registrarte aceptas la <a href="@Url.Action("Privacy", "Home")" class="color-green">política de privacidad</a> y los <a href="@Url.Action("Terms", "Home")" class="color-green">términos del servicio</a>.</p>
         </div><!--/row-fluid-->
     </div><!--/container-->
 </div><!--/body-->
 <!--=== End Content Part ===-->
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 

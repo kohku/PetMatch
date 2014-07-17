@@ -1,56 +1,16 @@
 ﻿label.__required {
-    float: left;
+    display: inline-block;
 }
 span.__required {
-    clear: right; 
+    display: inline-block;
     margin-left: 0.25em; 
-    float: left;
 }
-#__external_login{
-    display: block;
-    margin: .65em .25em 1em;
-    float: left;
-    font-family: 'OpenSans'
+div.__required {
+    width: 100%;
 }
-#__socialLoginList {
-    clear: both;
-    float: none;
-    width: 400px;
+.validation-summary-errors{
+    margin-top: 1em;
 }
-#Google{
-    display: block;
-    background-image: url(../images/google.png);
-    background-repeat: no-repeat;
-    background-color: #357ae8;
-    background-position: 8px 6px;
-    background-size: 21px;
-    font-size: 90%;
-    color: #ffffff;
-    padding: .5em 1em .5em 35px;
-    opacity: 0.8;
-    filter: 80;
-    font-size:14px;
-    font-weight:normal;
-    line-height:20px;
-    border-radius: 2px;
-    text-transform: none;
-    margin-bottom: .25em;
-    border: 0 rgba(0,0,0,0);
-}
-#Facebook {
-    display: block;
-    background-image: url(../images/facebook.png);
-    background-color: #3b5998;
-    background-position: -8px -4px;
-    background-repeat: no-repeat;
-    color: #ffffff;
-    font-size: 90%;
-    padding: .5em 1em .5em 35px;
-    font-size:14px;
-    font-weight:normal;
-    line-height:20px;
-    border-radius: 2px;
-    text-transform: none;
-    margin-bottom: .25em;
-    border: 0 rgba(0,0,0,0);
+.validation-summary-errors ul li {
+    color: #c00 ;
 }

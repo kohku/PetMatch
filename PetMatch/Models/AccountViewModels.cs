@@ -5,7 +5,47 @@ using System.Linq;
 
 namespace PetMatch.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class RegisterViewModel
+    {
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        [Required(ErrorMessage = "El correo electrónico es requerido.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida.")]
+        [StringLength(100, ErrorMessage = "La longitud mínima de la {0} debe ser mayor a {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Se requiere confirmar la contraseña.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class EditProfileViewModel
+    {
+    }
+
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "El correo electrónico es requerido.")]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [Display(Name = "Permanecer conectado")]
+        public bool RememberMe { get; set; }
+    }
+
+        public class ExternalLoginConfirmationViewModel
     {
         [Required]
         [EmailAddress]
@@ -38,21 +78,8 @@ namespace PetMatch.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-    }
 
     public class ProfileViewModel
     {
@@ -95,25 +122,6 @@ namespace PetMatch.Models
         public string Provider { get; set; }
 
         public string FirstName { get; set; }
-    }
-
-    public class RegisterViewModel
-    {
-        [EmailAddress]
-        [Display(Name = "Email", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        [Required(ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "EmailRequired", ErrorMessage = "")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordLength", ErrorMessage = "", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "ConfirmPassword", ResourceType = typeof(PetMatch.Web.Resources.Account))]
-        [Compare("Password", ErrorMessageResourceType = typeof(PetMatch.Web.Resources.Account), ErrorMessageResourceName = "PasswordDoesNotMatch", ErrorMessage = "")]
-        public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

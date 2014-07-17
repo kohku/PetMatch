@@ -169,15 +169,6 @@ namespace PetMatch.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to o.
-        /// </summary>
-        public static string OrRegisterWithExternal {
-            get {
-                return ResourceManager.GetString("OrRegisterWithExternal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contraseña.
         /// </summary>
         public static string Password {
@@ -201,24 +192,6 @@ namespace PetMatch.Web.Resources {
         public static string PasswordLength {
             get {
                 return ResourceManager.GetString("PasswordLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regístrate con {0}.
-        /// </summary>
-        public static string RegisterExternalText {
-            get {
-                return ResourceManager.GetString("RegisterExternalText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regístrate con tu cuenta {0}..
-        /// </summary>
-        public static string RegisterExternalTitle {
-            get {
-                return ResourceManager.GetString("RegisterExternalTitle", resourceCulture);
             }
         }
         

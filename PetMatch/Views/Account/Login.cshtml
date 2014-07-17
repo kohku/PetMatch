@@ -2,7 +2,12 @@
 @model LoginViewModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Iniciar sesión";
+}
+
+@section AddToHead{
+    <link href="@Url.Content("~/Content/account/login.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/account/social.css")" rel="stylesheet" type="text/css" />
 }
 
 <!--=== Breadcrumbs ===-->
@@ -18,29 +23,34 @@
 <!--=== End Breadcrumbs ===-->
 <!--=== Content Part ===-->
 <div class="container">
-    <div class="row-fluid">
-        <form class="log-page">
+    <div class="row-fluid log-page">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
             <h3>Ingresa a tu cuenta</h3>
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-user"></i></span>
-                <input class="input-xlarge" type="text" placeholder="Nombre de usuario">
+                @Html.TextBoxFor(m => m.Email, new { @class = "input-xlarge", placeholder = "usuario@ejemplo.com" })
             </div>
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-lock"></i></span>
-                <input class="input-xlarge" type="text" placeholder="Contraseña">
+                @Html.PasswordFor(m => m.Password, new { @class = "input-xlarge", placeholder = "Contraseña" })
             </div>
             <div class="controls form-inline">
-                <label class="checkbox"><input type="checkbox" /> Permanecer conectado</label>
-                <button class="btn-u pull-right" type="submit"><a href="perfil.html">Iniciar</a></button>
+                <label class="checkbox">@Html.CheckBoxFor(m => m.RememberMe) Permanecer conectado</label>
+                <button class="btn-u pull-right" type="submit">Iniciar</button>
             </div>
+            @Html.ValidationSummary("")
             <hr />
             <h4>¿Olvidaste tu contraseña?</h4>
             <p>No te preocupes, haz <a class="color-green" href="#">clic aquí</a> para recuperarlo.</p>
-        </form>
+        }
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+        <p>¿Aún no estás registrado? Haz clic <a href="@Url.Action("Register")" class="color-green">aquí</a> para registrarte.</p>
+        <p>Al registrarte aceptas la <a href="@Url.Action("Privacy", "Home")" class="color-green">política de privacidad</a> y los <a href="@Url.Action("Terms", "Home")" class="color-green">términos del servicio</a>.</p>
     </div><!--/row-fluid-->
 </div><!--/container-->
 <!--=== End Content Part ===-->
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

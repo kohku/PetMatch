@@ -1,0 +1,6 @@
+﻿.validation-summary-errors{
+    margin-top: 1em;
+}
+.validation-summary-errors ul li {
+    color: #c00 ;
+}
