@@ -15,7 +15,7 @@ namespace PetMatch.Web
         void UpdatePetBreed(PetBreed breed);
         void InsertPetBreed(PetBreed breed);
         void DeletePetBreed(PetBreed breed);
-        IEnumerable<PetBreed> GetBreeds(Guid? id, string name);
+        IEnumerable<PetBreed> GetBreeds(Guid? id, Guid? animalId, string name);
 
         void UpdatePetAnimal(PetAnimal animal);
         void InsertPetAnimal(PetAnimal animal);

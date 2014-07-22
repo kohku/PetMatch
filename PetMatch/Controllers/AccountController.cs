@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using PetMatch.Models;
+using PetMatch.Web;
 
 namespace PetMatch.Controllers
 {
@@ -69,7 +70,7 @@ namespace PetMatch.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("EditProfile", "Account");
+                    return RedirectToAction("CompleteProfile", "Account");
                 }
                 else
                 {
@@ -81,9 +82,51 @@ namespace PetMatch.Controllers
             return View(model);
         }
 
-        public ActionResult EditProfile()
+        // TODO: Fix this hack
+        [AllowAnonymous]
+        public ActionResult CompleteProfile()
         {
-            var model = new EditProfileViewModel();
+            var model = new CompleteProfileViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CompleteProfile(CompleteProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("SelectPlan", "Account");
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetCities(Guid stateId)
+        {
+            var cities = from province in Rainbow.Web.Province.GetProvinces(stateId)
+                         orderby province.Name ascending
+                         select new { value = province.ID, text = province.Name };
+
+            return Json(cities, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetBreeds(Guid animalId)
+        {
+            var breeds = from breed in PetBreed.GetBreeds(null, animalId, null)
+                         orderby breed.Name ascending
+                         select new { value = breed.ID, text = breed.Name };
+
+            return Json(breeds, JsonRequestBehavior.AllowGet);
+        }
+
+        // TODO: Fix this hack
+        [AllowAnonymous]
+        public ActionResult SelectPlan()
+        {
+            var model = new SelectPlanModel();
             return View(model);
         }
 
@@ -224,17 +267,6 @@ namespace PetMatch.Controllers
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
-
-
-
-        [AllowAnonymous]
-        public ActionResult GetCities(Guid stateId)
-        {
-            var cities = from province in Rainbow.Web.Province.GetProvinces(stateId)
-                         select new { value = province.ID, text = province.Name };
-
-            return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
         //

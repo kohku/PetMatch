@@ -58,9 +58,16 @@ namespace PetMatch.Web.Sql
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PetBreed> GetBreeds(Guid? id, string name)
+        public IEnumerable<PetBreed> GetBreeds(Guid? id, Guid? animalId, string name)
         {
-            throw new NotImplementedException();
+            List<PetBreed> results = new List<PetBreed>();
+
+            results.Add(new PetBreed
+            {
+                Name="Mascota"
+            });
+
+            return results;
         }
 
         public void UpdatePetAnimal(PetAnimal animal)

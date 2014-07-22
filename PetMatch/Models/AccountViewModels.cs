@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rainbow.Web;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,7 +26,78 @@ namespace PetMatch.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class EditProfileViewModel
+    public class CompleteProfileViewModel
+    {
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        [Required(ErrorMessage = "El correo electrónico es requerido.")]
+        public string Email { get; set; }
+
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "El nombre es requerido.")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Apellido")]
+        [Required(ErrorMessage = "El apellido es requerido.")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Celular")]
+        public string CellPhone { get; set; }
+
+        [Display(Name = "Estado")]
+        public Guid StateID { get; set; }
+
+        [Display(Name = "Municipio/Ciudad")]
+        public Guid CityID { get; set; }
+
+        [Display(Name = "Colonia")]
+        public string Neighborhood { get; set; }
+
+        [Display(Name="Clase de mascota")]
+        public Guid PetAnimalID { get; set; }
+
+        [Display(Name="Por favor, elige la raza")]
+        public Guid PetBreedID { get; set; }
+
+        [Display(Name="Breve descripción de tu mascota")]
+        public string PetDescription { get; set; }
+
+        [Display(Name="Fecha de nacimiento")]
+        public DateTime? PetBirthDay { get; set; }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> States
+        {
+            get
+            {
+                var states = from state in StateEntity.GetAll()
+                             select new System.Web.Mvc.SelectListItem
+                             {
+                                 Value = state.ID.ToString(),
+                                 Text = state.Name
+                             };
+
+                return states;
+            }
+        }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> PetAnimals
+        {
+            get 
+            {
+                var animals = from animal in PetMatch.Web.PetAnimal.GetAll()
+                              where animal.Visible
+                              select new System.Web.Mvc.SelectListItem
+                              {
+                                  Value = animal.ID.ToString(),
+                                  Text = animal.Name
+                              };
+
+                return animals;
+            }
+        }
+    }
+
+    public class SelectPlanModel
     {
     }
 

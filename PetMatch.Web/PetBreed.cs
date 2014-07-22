@@ -10,12 +10,32 @@ namespace PetMatch.Web
 {
     public class PetBreed : BusinessBase<PetBreed, Guid>
     {
+        private Guid _animalId;
         private string _name;
         private bool _visible;
 
         public PetBreed()
             : base(Guid.NewGuid())
         {
+        }
+        // TODO: Fix all setters and getters
+        public Guid AnimalID
+        {
+            [System.Diagnostics.DebuggerStepThrough]
+            get { return _animalId; }
+            [System.Diagnostics.DebuggerStepThrough]
+            set
+            {
+                var changed = this._animalId != value;
+                if (changed)
+                    this.OnPropertyChanging("AnimalID");
+                this._animalId = value;
+                if (changed)
+                {
+                    this.OnPropertyChanged("AnimalID");
+                    this.MarkChanged("AnimalID");
+                }
+            }
         }
 
         [DataMember]
@@ -66,7 +86,7 @@ namespace PetMatch.Web
                 !string.IsNullOrEmpty(this.CreatedBy) && this.CreatedBy.Length > 256);
             AddRule("DuplicatedName", ResourceStringLoader.GetResourceString("PetBreed_DuplicatedName", new { this.Name }),
                 !string.IsNullOrEmpty(this.Name) && this.ChangedProperties.Contains("Name")
-                && PetBreed.GetBreeds(null, this.Name).Count(m => m.ID != this.ID) > 0);
+                && PetBreed.GetBreeds(null, this.AnimalID, this.Name).Count(m => m.ID != this.ID) > 0);
             AddRule("EmptyLastUpdatedBy", ResourceStringLoader.GetResourceString("PetBreed_EmptyLastUpdatedBy"),
                 !this.IsNew && this.IsChanged && string.IsNullOrEmpty(this.LastUpdatedBy));
             AddRule("MaxLastUpdatedByLength", ResourceStringLoader.GetResourceString("PetBreed_MaxLastUpdatedByLength"),
@@ -75,7 +95,7 @@ namespace PetMatch.Web
 
         protected override PetBreed DataSelect(Guid id)
         {
-            return PetBreed.GetBreeds(id, null).FirstOrDefault();
+            return PetBreed.GetBreeds(id, null, null).FirstOrDefault();
         }
 
         protected override void DataUpdate()
@@ -93,14 +113,15 @@ namespace PetMatch.Web
             PetMatch.Instance.DeletePetBreed(this);
         }
 
-        public static IEnumerable<PetBreed> GetBreeds(Guid? id, string name)
+        public static IEnumerable<PetBreed> GetBreeds(Guid? id, Guid? animalId, string name)
         {
-            var results = new List<PetBreed>(PetMatch.Instance.GetBreeds(id, name));
+            var results = new List<PetBreed>(PetMatch.Instance.GetBreeds(id, animalId, name));
 
             foreach (var item in results)
                 item.MarkOld();
 
             return results;
         }
+
     }
 }

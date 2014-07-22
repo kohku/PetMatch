@@ -83,9 +83,9 @@ namespace PetMatch.Web
             container.Resolve<IPetMatchRepository>().DeletePetBreed(breed);
         }
 
-        internal IEnumerable<PetBreed> GetBreeds(Guid? id, string name)
+        internal IEnumerable<PetBreed> GetBreeds(Guid? id, Guid? animalId, string name)
         {
-            return container.Resolve<IPetMatchRepository>().GetBreeds(id, name);
+            return container.Resolve<IPetMatchRepository>().GetBreeds(id, animalId, name);
         }
 
         internal void UpdatePetAnimal(PetAnimal animal)
