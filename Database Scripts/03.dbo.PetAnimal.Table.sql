@@ -71,4 +71,8 @@ GO
 ALTER TABLE [dbo].[PetAnimal] ADD  CONSTRAINT [DF_PetAnimal_Visible]  DEFAULT ((0)) FOR [Visible]
 GO
 
+INSERT [dbo].[PetAnimal] ([ID], [Name], [DateCreated], [CreatedBy], [LastUpdated], [LastUpdatedBy], [Visible]) VALUES (N'e6f03c12-f545-4072-88de-01cf7c93b3b2', N'Perro', CAST(0x0000A356004D9EAA AS DateTime), N'dcruz', NULL, NULL, 1)
+INSERT [dbo].[PetAnimal] ([ID], [Name], [DateCreated], [CreatedBy], [LastUpdated], [LastUpdatedBy], [Visible]) VALUES (N'be3d8e61-ca09-4a11-8e61-2f094d47c131', N'Gato', CAST(0x0000A356004DA6A2 AS DateTime), N'dcruz', NULL, NULL, 1)
+INSERT [dbo].[PetAnimal] ([ID], [Name], [DateCreated], [CreatedBy], [LastUpdated], [LastUpdatedBy], [Visible]) VALUES (N'a93ea087-14fb-49f3-a927-e80c1dccceb0', N'Ave', CAST(0x0000A35600514321 AS DateTime), N'dcruz', NULL, NULL, 1)
+INSERT [dbo].[PetAnimal] ([ID], [Name], [DateCreated], [CreatedBy], [LastUpdated], [LastUpdatedBy], [Visible]) VALUES (N'44e0c64d-de53-4ed5-b06c-ee53af31c546', N'Reptil', CAST(0x0000A3560050E15B AS DateTime), N'dcruz', NULL, NULL, 1)
 

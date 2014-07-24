@@ -71,7 +71,7 @@
                     </div>
                     @Html.LabelFor(m => m.PetDescription, new { @class = "__required" })<span class="color-red __required">*&nbsp;@Html.ValidationMessageFor(m => m.PetDescription)</span>
                     <div class="input-prepend __required">
-                        @Html.TextBoxFor(m => m.PetDescription, new { @class = "span12" })
+                        @Html.TextAreaFor(m => m.PetDescription, new { @class = "span12" })
                     </div>
                     @Html.LabelFor(m => m.PetBirthDay, new { @class = "__required" })<span class="color-red __required">*&nbsp;@Html.ValidationMessageFor(m => m.PetBirthDay)</span>
                     <div class="input-prepend __required">
