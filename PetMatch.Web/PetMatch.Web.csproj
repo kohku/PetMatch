@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessBase.cs" />
     <Compile Include="IPetMatchRepository.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="PetBreed.cs" />

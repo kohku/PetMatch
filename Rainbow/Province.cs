@@ -27,13 +27,12 @@ namespace Rainbow.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._name != value)
-                {
+                var changed = !object.Equals(this._name, value);
+                if (changed)
                     this.OnPropertyChanging("Name");
-                    this.MarkChanged("Name");
-                }
-
                 this._name = value;
+                if (changed)
+                    MarkChanged("Name");
             }
         }
 
@@ -45,13 +44,12 @@ namespace Rainbow.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._visible != value)
-                {
+                var changed = !object.Equals(this._visible, value);
+                if (changed)
                     this.OnPropertyChanging("Visible");
-                    this.MarkChanged("Visible");
-                }
-
                 this._visible = value;
+                if (changed)
+                    MarkChanged("Visible");
             }
         }
 
@@ -63,13 +61,12 @@ namespace Rainbow.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._stateId != value)
-                {
+                var changed = !object.Equals(this._stateId, value);
+                if (changed)
                     this.OnPropertyChanging("StateID");
-                    this.MarkChanged("StateID");
-                }
-
                 this._stateId = value;
+                if (changed)
+                    MarkChanged("StateID");
             }
         }
 
@@ -113,6 +110,8 @@ namespace Rainbow.Web
                 !this.IsNew && this.IsChanged && string.IsNullOrEmpty(this.LastUpdatedBy));
             AddRule("MaxLastUpdatedByLength", ResourceStringLoader.GetResourceString("Province_MaxLastUpdatedByLength"),
                 !this.IsNew && this.IsChanged && !string.IsNullOrEmpty(this.LastUpdatedBy) && this.LastUpdatedBy.Length > 256);
+            AddRule("HasConcurrencyConflict", "The item has been already changed or processed. Click on refresh to get latest changes.",
+                !this.IsNew && this.HasConcurrencyConflict);
         }
 
         protected override Province DataSelect(Guid id)

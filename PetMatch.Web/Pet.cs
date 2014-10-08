@@ -1,4 +1,5 @@
-﻿using Rainbow.Web.Utilities;
+﻿using Rainbow.Web;
+using Rainbow.Web.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,13 +33,12 @@ namespace PetMatch.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._name != value)
-                {
+                var changed = !object.Equals(this._name, value);
+                if (changed)
                     this.OnPropertyChanging("Name");
-                    this.MarkChanged("Name");
-                }
-
                 this._name = value;
+                if (changed)
+                    MarkChanged("Name");
             }
         }
 
@@ -50,13 +50,12 @@ namespace PetMatch.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (this._visible != value)
-                {
+                var changed = !object.Equals(this._visible, value);
+                if (changed)
                     this.OnPropertyChanging("Visible");
-                    this.MarkChanged("Visible");
-                }
-
                 this._visible = value;
+                if (changed)
+                    MarkChanged("Visible");
             }
         }
 
