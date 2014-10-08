@@ -4,9 +4,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Rainbow.Web.Utilities;
 
 namespace Rainbow.Web
 {
@@ -44,13 +46,14 @@ namespace Rainbow.Web
         /// </summary>
         protected virtual void OnCreated()
         {
-            emptyChangingEventArgs =  new PropertyChangingEventArgs(String.Empty);
-             syncRoot = new object();
+            emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+            syncRoot = new object();
             _dateCreated = DateTime.MinValue;
             _changedProperties = new StringCollection();
             _brokenRules = new StringDictionary();
             _isNew = true;
             _isChanged = true;
+            _originalValues = new Dictionary<string, object>();
         }
 
         #region Properties
@@ -66,12 +69,12 @@ namespace Rainbow.Web
             [System.Diagnostics.DebuggerStepThrough]
             set
             {
-                if (!this._id.Equals(value))
-                {
+                var changed = !object.Equals(_id, value);
+                if (changed)
                     this.OnPropertyChanging("ID");
-                    this.MarkChanged("ID");
-                }
                 this._id = value;
+                if (changed)
+                    MarkChanged("ID");
             }
         }
 
@@ -84,26 +87,24 @@ namespace Rainbow.Web
         {
             get
             {
-                if (_dateCreated == DateTime.MinValue)
-                    return _dateCreated;
-
                 return _dateCreated;
             }
             set
             {
-                if (_dateCreated != value)
-                {
+                // Deals with SQL precision
+                var changed = !object.Equals(_dateCreated, value.RoundToSqlDateTime());
+                if (changed)
                     this.OnPropertyChanging("DateCreated");
+                this._dateCreated = value.RoundToSqlDateTime();
+                if (changed)
                     MarkChanged("DateCreated");
-                }
-                _dateCreated = value;
             }
         }
 
         private string _createdBy;
 
         [DataMember]
-        public string CreatedBy
+        public virtual string CreatedBy
         {
             get
             {
@@ -111,12 +112,12 @@ namespace Rainbow.Web
             }
             set
             {
-                if (_createdBy != value)
-                {
+                var changed = !object.Equals(_createdBy, value);
+                if (changed)
                     this.OnPropertyChanging("CreatedBy");
+                this._createdBy = value;
+                if (changed)
                     MarkChanged("CreatedBy");
-                }
-                _createdBy = value;
             }
         }
 
@@ -130,19 +131,20 @@ namespace Rainbow.Web
             get { return _lastUpdated; }
             set
             {
-                if (_lastUpdated != value)
-                {
+                // Deals with SQL precision
+                var changed = !object.Equals(_lastUpdated, value.HasValue ? value.Value.RoundToSqlDateTime() : value);
+                if (changed)
                     this.OnPropertyChanging("LastUpdated");
+                this._lastUpdated = value.HasValue ? value.Value.RoundToSqlDateTime() : value;
+                if (changed)
                     MarkChanged("LastUpdated");
-                }
-                _lastUpdated = value;
             }
         }
 
         private string _lastUpdatedBy;
 
         [DataMember]
-        public string LastUpdatedBy
+        public virtual string LastUpdatedBy
         {
             get
             {
@@ -150,12 +152,12 @@ namespace Rainbow.Web
             }
             set
             {
-                if (_lastUpdatedBy != value)
-                {
+                var changed = !object.Equals(_lastUpdatedBy, value);
+                if (changed)
                     this.OnPropertyChanging("LastUpdatedBy");
+                this._lastUpdatedBy = value;
+                if (changed)
                     MarkChanged("LastUpdatedBy");
-                }
-                _lastUpdatedBy = value;
             }
         }
 
@@ -224,6 +226,61 @@ namespace Rainbow.Web
             _isChanged = false;
             _isNew = false;
             _changedProperties.Clear();
+            _originalValues.Clear();
+        }
+
+        private Dictionary<string, object> _originalValues;
+
+        protected Dictionary<string, object> OriginalValues
+        {
+            get { return _originalValues; }
+        }
+
+        protected virtual bool HasConcurrencyConflict
+        {
+            get
+            {
+                if (this.IsNew)
+                    return false;
+
+                var stored = Load(this.ID);
+
+                // Somehow deleted. Deletion is logical so this shouldn't be true.
+                if (stored == null)
+                    return true;
+
+                var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(property => !Attribute.IsDefined(property, typeof(CalculatedAttribute)));
+
+                foreach (var property in properties)
+                {
+                    if (!property.CanRead || !property.CanWrite)
+                        continue;
+
+                    if (this.OriginalValues.ContainsKey(property.Name))
+                    {
+                        // Compare hashes
+                        object currentValue = property.GetValue(this, null);
+                        object storedValue = property.GetValue(stored, null);
+
+                        if (!object.Equals(currentValue, storedValue)
+                            && !Object.Equals(this.OriginalValues[property.Name], currentValue)
+                            && !Object.Equals(this.OriginalValues[property.Name], storedValue))
+                            return true;
+                    }
+                    else
+                    {
+                        // Compare reflected values
+                        object currentValue = property.GetValue(this, null);
+                        object storedValue = property.GetValue(stored, null);
+
+                        if (!Object.Equals(currentValue, storedValue))
+                            return true;
+                    }
+                }
+
+                return false;
+            }
         }
 
         #endregion
@@ -240,30 +297,55 @@ namespace Rainbow.Web
 
         #region Events
 
+        private EventHandler<SavedEventArgs> _saved;
         /// <summary>
         /// Occurs when the class is Saved
         /// </summary>
-        public event EventHandler<SavedEventArgs> Saved;
+        public event EventHandler<SavedEventArgs> Saved
+        {
+            add
+            {
+                if (_saved == null || !_saved.GetInvocationList().Contains(value))
+                    _saved += value;
+            }
+            remove
+            {
+                _saved -= value;
+            }
+        }
         /// <summary>
         /// Raises the Saved event.
         /// </summary>
         protected void OnSaved(BusinessBase<TYPE, KEY> businessObject, SaveAction action)
         {
-            if (Saved != null)
-                Saved(businessObject, new SavedEventArgs(action));
+            if (_saved != null)
+                _saved(businessObject, new SavedEventArgs(action));
         }
+
+        private EventHandler<SavedEventArgs> _saving;
 
         /// <summary>
         /// Occurs when the class is Saved
         /// </summary>
-        public event EventHandler<SavedEventArgs> Saving;
+        public event EventHandler<SavedEventArgs> Saving
+        {
+            add
+            {
+                if (_saving == null || !_saving.GetInvocationList().Contains(value))
+                    _saving += value;
+            }
+            remove
+            {
+                _saving -= value;
+            }
+        }
         /// <summary>
         /// Raises the Saving event
         /// </summary>
         protected void OnSaving(BusinessBase<TYPE, KEY> businessObject, SaveAction action)
         {
-            if (Saving != null)
-                Saving(businessObject, new SavedEventArgs(action));
+            if (_saving != null)
+                _saving(businessObject, new SavedEventArgs(action));
         }
 
         #endregion
@@ -303,6 +385,7 @@ namespace Rainbow.Web
         {
             get
             {
+                this._brokenRules.Clear();
                 ValidationRules();
                 return this._brokenRules.Count == 0;
             }
@@ -506,10 +589,23 @@ namespace Rainbow.Web
 
         #region INotifyPropertyChanging
 
+        private PropertyChangingEventHandler _propertyChanging;
+
         /// <summary>
         /// Occurs when a property value is changing.
         /// </summary>
-        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangingEventHandler PropertyChanging
+        {
+            add
+            {
+                if (_propertyChanging == null || !_propertyChanging.GetInvocationList().Contains(value))
+                    _propertyChanging += value;
+            }
+            remove
+            {
+                _propertyChanging -= value;
+            }
+        }
 
         /// <summary>
         /// Raise the property changing event safely.
@@ -517,26 +613,53 @@ namespace Rainbow.Web
         /// <param name="propertyName">Property changing.</param>
         protected virtual void OnPropertyChanging(string propertyName)
         {
-            if (this.PropertyChanging != null)
-                this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            var property = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.CanWrite && p.CanRead && p.Name == propertyName)
+                .FirstOrDefault();
+
+            var value = property != null ? property.GetValue(this, null) : null;
+
+            OnPropertyChanging(propertyName, value);
+        }
+
+        protected virtual void OnPropertyChanging(string propertyName, object valueToHold)
+        {
+            if (this._propertyChanging != null)
+                this._propertyChanging(this, new PropertyChangingEventArgs(propertyName));
+
+            if (!this.IsNew && !this.OriginalValues.ContainsKey(propertyName))
+                this.OriginalValues.Add(propertyName, valueToHold);
         }
 
         #endregion
 
         #region INotifyPropertyChanged
 
+        private PropertyChangedEventHandler _propertyChanged;
+
         /// <summary>
         /// Occurs when a property value changed.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged
+        {
+            add
+            {
+                if (_propertyChanged == null || !_propertyChanged.GetInvocationList().Contains(value))
+                    _propertyChanged += value;
+            }
+            remove
+            {
+                _propertyChanged -= value;
+            }
+        }
 
         /// <summary>
         /// Raises the PropertyChanged event safely.
         /// </summary>
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this._propertyChanged != null)
+                this._propertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
@@ -546,6 +669,7 @@ namespace Rainbow.Web
         /// <summary>
         /// Resets the object’s state to unchanged by accepting the modifications.
         /// </summary>
+        [System.Diagnostics.DebuggerStepThrough]
         public void AcceptChanges()
         {
             Save();

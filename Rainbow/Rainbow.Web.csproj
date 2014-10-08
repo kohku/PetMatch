@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessBase.cs" />
+    <Compile Include="CalculatedAttribute.cs" />
     <Compile Include="IRainbowRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Province.cs" />
@@ -59,7 +60,8 @@
     <Compile Include="SavedEventArgs.cs" />
     <Compile Include="Sql\SqlRainbowRepository.cs" />
     <Compile Include="StateEntity.cs" />
-    <Compile Include="Utilities\DateTime.cs" />
+    <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\Range.cs" />
     <Compile Include="Utilities\ResourceStringLoader.cs" />
   </ItemGroup>
   <ItemGroup>
