@@ -62,6 +62,7 @@ namespace Rainbow.Web
         /// Gets or set's the instance's ID.
         /// </summary>
         [DataMember]
+        [ConcurrencyCheck]
         public KEY ID
         {
             [System.Diagnostics.DebuggerStepThrough]
@@ -83,6 +84,7 @@ namespace Rainbow.Web
         /// The date on which the instance was created.
         /// </summary>
         [DataMember]
+        [ConcurrencyCheck]
         public virtual DateTime DateCreated
         {
             get
@@ -104,6 +106,7 @@ namespace Rainbow.Web
         private string _createdBy;
 
         [DataMember]
+        [ConcurrencyCheck]
         public virtual string CreatedBy
         {
             get
@@ -126,6 +129,7 @@ namespace Rainbow.Web
         /// The date on which the instance was modified.
         /// </summary>
         [DataMember]
+        [ConcurrencyCheck]
         public virtual DateTime? LastUpdated
         {
             get { return _lastUpdated; }
@@ -144,6 +148,7 @@ namespace Rainbow.Web
         private string _lastUpdatedBy;
 
         [DataMember]
+        [ConcurrencyCheck]
         public virtual string LastUpdatedBy
         {
             get
@@ -250,7 +255,8 @@ namespace Rainbow.Web
                     return true;
 
                 var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(property => !Attribute.IsDefined(property, typeof(CalculatedAttribute)));
+                    .Where(property => !Attribute.IsDefined(property, typeof(CalculatedAttribute)) 
+                        && Attribute.IsDefined(property, typeof(ConcurrencyCheckAttribute)));
 
                 foreach (var property in properties)
                 {
